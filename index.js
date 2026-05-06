@@ -35,8 +35,12 @@ const getDogpic = async () => {
   } catch (err) {
     console.log(err);
   }
+  return '2: READY 🐶';
 };
-getDogpic();
+console.log('1: Will get dog pics!');
+const x = getDogpic();
+console.log(x);
+console.log('3: Done getting dog pics!');
 
 // readFilePro(`${__dirname}/dog.txt`)
 //   .then((data) => {
