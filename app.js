@@ -5,7 +5,7 @@ const app = express();
 app.use(express.json());
 
 const tours = JSON.parse(
-  fs.readFileSync(`${__dirname}/dev-data/data/tours-simple.json`, 'utf-8'),
+  fs.readFileSync(`${__dirname}/dev-data/data/tours-simple.json`),
 );
 
 const getAllTours = (req, res) => {
@@ -19,7 +19,7 @@ const getAllTours = (req, res) => {
 };
 
 const getTour = (req, res) => {
-   console.log(req.params);
+  console.log(req.params);
   const id = req.params.id * 1;
 
   const tour = tours.find((el) => el.id === id);
@@ -38,8 +38,7 @@ const getTour = (req, res) => {
       tour,
     },
   });
-});
-
+};
 
 const createTour = (req, res) => {
   // console.log(req.body);
@@ -61,7 +60,7 @@ const createTour = (req, res) => {
       });
     },
   );
-});
+};
 
 const updateTour = (req, res) => {
   if (req.params.id * 1 > tours.length) {
@@ -89,8 +88,7 @@ const deleteTour = (req, res) => {
     status: 'success',
     data: null,
   });
-}
-
+};
 
 // app.get('/api/v1/tours', getAllTours);
 // app.post('/api/v1/tours', createTour);
@@ -98,10 +96,12 @@ const deleteTour = (req, res) => {
 // app.patch('/api/v1/tours/:id', updateTour);
 // app.delete('/api/v1/tours/:id', deleteTour);
 
-app
-  .route('/api/v1/tours')
-  .get(getAllTours)
-  .post(createTour);
+app.route('/api/v1/tours').get(getAllTours).post(createTour);
+
+app.use((req, res, next) => {
+  console.log('Hello from the middleware 👋');
+  next();
+});
 
 app
   .route('/api/v1/tours/:id')
