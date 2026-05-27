@@ -10,15 +10,13 @@ const DB = process.env.DATABASE.replace(
 );
 
 mongoose
-  .connect(DB, {
+  .connect(process, {
+    // .connect(DB) {}
     useNewUrlParser: true,
     useCreateIndex: true,
     useFindAndModify: false,
   })
-  .then((con) => {
-    console.log(con.connections);
-    console.log('DB connection successful');
-  });
+  .then(() => console.log('DB connection successful'));
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
